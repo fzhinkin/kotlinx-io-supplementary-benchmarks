@@ -15,7 +15,7 @@ abstract class FileBenchmarksBase {
     @Param("8", "128", "1024", "8192")
     var bufferSize: Int = 0
 
-    @Param("1073741824") // 1G by default
+    @Param("134217728") // 128M by default
     var reopenAt: Int = 0
 
     protected val filePath: Path = Files.createTempFile("benchmark", ".bin")

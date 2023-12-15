@@ -1,0 +1,43 @@
+name: RunBenchmarks
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - name: Setup JDK
+        uses: actions/setup-java@v4.0.0
+        with:
+          java-version: '21'
+          distribution: 'liberica'
+          architecture: x64
+
+      - name: Build benchmarks
+        run: ./gradlew jmhJar
+
+      - name: Run benchmarks
+        run: |
+          OUT_FILE_NAME="+%Y-%m-%dT%H%M%S-linux-x64-"$(git rev-parse --short HEAD)".json"
+          test -d results || mkdir results
+          java -jar ./build/libs/kotlinx-io-supplementary-benchmarks-jmh.jar -f2 -rf json -rff results/$OUT_FILE_NAME SocketOutputStreamBenchmark
+
+      - name: Publish results
+        uses: peter-evans/create-pull-request@v5
+        with:
+          add-paths: results/*.json
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: results-${{ jobs.job_id }}
+          delete-branch: true
+          title: 'Benchmarking report'

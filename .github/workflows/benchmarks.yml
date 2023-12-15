@@ -29,12 +29,12 @@ jobs:
         run: |
           OUT_FILE_NAME=$(date "+%Y-%m-%dT%H%M%S-linux-x64-"$(git rev-parse --short HEAD)".json")
           test -d results || mkdir results
-          java -jar ./build/libs/kotlinx-io-supplementary-benchmarks-jmh.jar -f2 -rf json -rff results/$OUT_FILE_NAME -pbufferSize=32 SocketOutputStreamBenchmark
+          java -jar ./build/libs/kotlinx-io-supplementary-benchmarks-jmh.jar -f1 -wi 1 -i 1 -rf json -rff results/$OUT_FILE_NAME -pbufferSize=32 SocketOutputStreamBenchmark
 
       - name: Publish results
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.TOKEN }}
           add-paths: results/*.json
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>

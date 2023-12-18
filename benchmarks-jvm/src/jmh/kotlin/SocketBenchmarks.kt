@@ -75,7 +75,7 @@ open class SocketOutputStreamBenchmark : ArraySocketBenchmark() {
 
 @State(Scope.Benchmark)
 open class SocketInputStreamBenchmark : ArraySocketBenchmark() {
-    private val client = LoadClient(port, -1)
+    private val client = org.example.LoadClient(port, -1)
     private var clientThread: Thread? = null
     private lateinit var clientSocket: Socket
     private val serverSocket = ServerSocket()
@@ -140,7 +140,7 @@ open class SocketChannelWriteBenchmark : ByteBufferSocketBenchmark() {
 
 @State(Scope.Benchmark)
 open class SocketChannelReadBenchmark : ByteBufferSocketBenchmark() {
-    private val client = LoadClient(port, -1)
+    private val client = org.example.LoadClient(port, -1)
     private var clientThread: Thread? = null
     private val serverSocket = ServerSocketChannel.open()
     private lateinit var input: SocketChannel

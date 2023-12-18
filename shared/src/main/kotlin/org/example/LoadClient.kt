@@ -19,7 +19,7 @@ class LoadClient(private val port: Int, private val sndbufSize: Int) : Runnable 
     private var channel: SocketChannel? = null
 
     override fun run() {
-        val buffer = ByteBuffer.allocateDirect(max(DEFAULT_BUFFER_SIZE_8MB, sndbufSize))
+        val buffer = ByteBuffer.allocateDirect(max(org.example.DEFAULT_BUFFER_SIZE_8MB, sndbufSize))
         try {
             channel = SocketChannel.open()
             val localChannel = channel!!

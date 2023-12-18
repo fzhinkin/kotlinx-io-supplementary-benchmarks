@@ -32,7 +32,7 @@ class DiscardServer(private val port: Int, private val recvbuf: Int) : Runnable 
     override fun run() {
         val buffer = ByteBuffer.allocateDirect(max(DEFAULT_BUFFER_SIZE_8MB, recvbuf))
         try {
-            channel = ServerSocketChannel.open(StandardProtocolFamily.INET)
+            channel = ServerSocketChannel.open()
             val localChannel = channel!!
             localChannel.bind(InetSocketAddress(port))
             if (recvbuf > 0) {

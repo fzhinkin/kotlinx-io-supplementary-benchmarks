@@ -24,7 +24,7 @@ jobs:
         run: |
           OUT_FILE_NAME=$(date "+%Y-%m-%dT%H%M%S-linux-x64-"$(git rev-parse --short HEAD)".json")
           test -d results || mkdir results
-          java -jar ./build/libs/kotlinx-io-supplementary-benchmarks-jmh.jar -f2 -rf json -rff results/$OUT_FILE_NAME
+          java -jar ./benchmarks-jvm/build/libs/benchmarks-jvm-jmh.jar -f2 -rf json -rff results/$OUT_FILE_NAME
 
       - name: Publish results
         uses: peter-evans/create-pull-request@v5

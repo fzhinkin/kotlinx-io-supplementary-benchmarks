@@ -2,6 +2,7 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
+        google()
     }
 }
 
@@ -11,3 +12,4 @@ plugins {
 
 include(":shared")
 include(":benchmarks-jvm")
+include(":benchmarks-android")

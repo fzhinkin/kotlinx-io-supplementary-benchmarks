@@ -18,7 +18,7 @@ import java.nio.channels.FileChannel
 import java.nio.file.Files
 import java.nio.file.StandardOpenOption
 
-const val REOPEN_AT = 128 * 1024 * 1024 // 128M
+const val REOPEN_AT = 16 * 1024 * 1024
 
 @RunWith(Parameterized::class)
 public class FilesBenchmarks(val bufferSize: Int) {
